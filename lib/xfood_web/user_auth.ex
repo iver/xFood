@@ -1,4 +1,5 @@
 defmodule XfoodWeb.UserAuth do
+  @moduledoc false
   use XfoodWeb, :verified_routes
 
   import Plug.Conn

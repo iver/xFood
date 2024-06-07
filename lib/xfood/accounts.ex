@@ -4,9 +4,14 @@ defmodule Xfood.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Xfood.Repo
 
-  alias Xfood.Accounts.{User, UserToken, UserNotifier}
+  alias Xfood.Accounts.{
+    User,
+    UserNotifier,
+    UserToken
+  }
+
+  alias Xfood.Repo
 
   ## Database getters
 

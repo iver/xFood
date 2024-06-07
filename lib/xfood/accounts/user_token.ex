@@ -1,4 +1,6 @@
 defmodule Xfood.Accounts.UserToken do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Query
   alias Xfood.Accounts.UserToken

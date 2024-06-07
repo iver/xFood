@@ -1,4 +1,5 @@
 defmodule Xfood.Accounts.UserNotifier do
+  @moduledoc false
   import Swoosh.Email
 
   alias Xfood.Mailer
