@@ -9,6 +9,7 @@ defmodule XfoodWeb.Layouts do
   `use XfoodWeb, :live_view`.
   """
   use XfoodWeb, :html
+  import XfoodWeb.Components.MenuLive
 
   embed_templates "layouts/*"
 end

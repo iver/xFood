@@ -1,12 +1,21 @@
 {
-    "cSpell.words": [
-        "direnv",
-        "ECTO",
-        "envrc",
-        "erlang",
-        "Gitlab",
-        "iver",
-        "postgres",
-        "xfood"
-    ]
+  "cSpell.words": [
+    "direnv",
+    "ECTO",
+    "envrc",
+    "erlang",
+    "Gitlab",
+    "iver",
+    "postgres",
+    "xfood"
+  ],
+  "editor.formatOnSave": true,
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "css": "css"
+  },
+  "emmet.includeLanguages": {
+    "phoenix-heex": "html"
+  }
 }

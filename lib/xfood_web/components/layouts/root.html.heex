@@ -12,6 +12,21 @@
     </script>
   </head>
   <body class="bg-white antialiased">
+    <%= if @current_user do %>
+      <div class="text-[0.8125rem] leading-6 text-zinc-900">
+        <%= @current_user.email %>
+      </div>
+      <.menu>
+        <.menu_item link={~p"/users/settings"} text="Settings" alt="" active={false} />
+        <.menu_item link={~p"/users/log_out"} text="Log out" alt="" active={false} />
+      </.menu>
+    <% else %>
+      <.menu>
+        <.menu_item link={~p"/users/register"} text="Register" alt="" active={false} />
+        <.menu_item link={~p"/users/log_in"} text="Log in" alt="" active={false} />
+      </.menu>
+    <% end %>
+
     <%= @inner_content %>
   </body>
 </html>
