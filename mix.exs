@@ -1,15 +1,37 @@
 defmodule Xfood.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :xfood,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
+      elixirc_options: [warnings_as_errors: Mix.env() != :test],
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
+      docs: docs(),
       aliases: aliases(),
       deps: deps()
+    ]
+  end
+
+  defp docs do
+    [
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/iver/xFood/",
+      home_url: "https://github.com/iver/xFood/",
+      main: "xFood",
+      logo: "assets/logo.png",
+      extras: ["README.md"]
     ]
   end
 
@@ -32,17 +54,29 @@ defmodule Xfood.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.12"},
-      {:phoenix_ecto, "~> 4.4"},
+      # Code analysis and quality dependencies
+      {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:doctor, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:ex_check, "~> 0.16.0", only: [:dev, :test], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.7.0", only: [:dev, :test]},
+      {:excoveralls, "~> 0.10", only: :test},
+      {:faker, "~> 0.18", only: [:dev, :test]},
+      {:mix_audit, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:sobelow, ">= 0.0.0", only: [:dev, :test], runtime: false},
+
+      # Project functionality dependencies
+      {:bandit, "~> 1.2"},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:csv, "~> 3.2"},
+      {:dns_cluster, "~> 0.1.1"},
       {:ecto_sql, "~> 3.10"},
-      {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 4.0"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.2"},
-      {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:finch, "~> 0.13"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:gettext, "~> 0.20"},
       {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.1.1",
@@ -50,14 +84,18 @@ defmodule Xfood.MixProject do
        app: false,
        compile: false,
        depth: 1},
-      {:swoosh, "~> 1.5"},
-      {:finch, "~> 0.13"},
-      {:telemetry_metrics, "~> 1.0"},
-      {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:phoenix, "~> 1.7.12"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:phoenix_html, "~> 4.0"},
+      {:phoenix_live_dashboard, "~> 0.8.3"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_view, "~> 0.20.2"},
+      {:postgrex, ">= 0.0.0"},
+      {:swoosh, "~> 1.5"},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:telemetry_metrics, "~> 1.0"},
+      {:telemetry_poller, "~> 1.0"}
     ]
   end
 
