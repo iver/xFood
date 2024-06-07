@@ -1,0 +1,94 @@
+# This is a continuous integration workflow
+# that executes the following tasks:
+#
+# * Review the development tools
+# * Validate code quality
+# * Run static code analysis
+# * Run the unit tests
+name: "CI"
+
+# Controla cuando debe ejecutarse la `GitHub action`
+on:
+  # Triggers on any branch that has a `Pull Request` open
+  pull_request:
+    branches:
+      - "*"
+    # Should not be executed when a MarkDown file is modified
+    paths-ignore:
+      - '**.md'
+  # If you push to main or develop, it must also be executed
+  push:
+    branches:
+      - main
+      - develop
+
+# Global environment variables for the workflow
+env:
+  ECTO_USER: postgres
+  ECTO_PASS: postgres
+  APP_NAME: xFood
+
+# A workflow is made up of one or more jobs that can be
+# run sequentially or in parallel
+jobs:
+
+  # Compile the application in the test environment and run general analysis
+  test:
+    name: "[Test] Pruebas Unitarias. OPT ${{matrix.otp}}/ Elixir ${{matrix.elixir}}"
+    runs-on: ubuntu-latest
+    strategy:
+      # Defines the versions to use of OTP and Elixir
+      # when the workflow steps are built and executed
+      matrix:
+        otp: ['26.1.1']
+        elixir: ['1.15-otp-26']
+    env:
+      MIX_ENV: test
+    services:
+      db:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: ${{ env.ECTO_USER }}
+          POSTGRES_PASSWORD: ${{ env.ECTO_PASS }}
+          ECTO_DB: ${{ env.APP_NAME }}_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      # Validate the reference in the repository to match
+      # the ref/SHA that triggered the workflow.
+      - uses: actions/checkout@v3
+
+      # Setup Elixir ----------------------------------------------------------
+      - name: Elixir Preparation
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      # Restore the cache -----------------------------------------------------
+      - name: Cache files
+        id: dev-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-
+
+      # Get dependencies if cache is not available ----------------------------
+      - name: Installing dependencies
+        if: steps.dev-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix setup
+
+      # Run check in test environment -------------------------------------
+      - name: Mix check execution
+        run: mix check
