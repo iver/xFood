@@ -36,6 +36,7 @@ defmodule Xfood.DataCase do
   Sets up the sandbox based on the test tags.
   """
   def setup_sandbox(tags) do
+    # credo:disable-for-lines:2
     pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Xfood.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
