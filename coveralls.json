@@ -1,0 +1,34 @@
+{
+  "default_stop_words": [
+    "defmodule",
+    "defrecord",
+    "defimpl",
+    "defexception",
+    "defprotocol",
+    "defstruct",
+    "def.+(.+\\\\.+).+do",
+    "^\\s+use\\s+"
+  ],
+  "skip_files": [
+    "lib/xfood/repo.ex",
+    "lib/xfood_web/components/core_components.ex",
+    "lib/xfood_web/components/layouts.ex",
+    "lib/xfood_web/controllers/page_html.ex",
+    "lib/xfood_web/endpoint.ex",
+    "lib/xfood_web/gettext.ex",
+    "lib/xfood_web/require_active_status.ex",
+    "lib/xfood_web/telemetry.ex",
+    "lib/xfood.ex",
+    "lib/xfood/mailer.ex",
+    "lib/xfood/tracer/metrics.ex",
+    "test/support"
+  ],
+  "coverage_options": {
+    "output_dir": "cover/",
+    "minimum_coverage": 84,
+    "html_filter_full_covered": true
+  },
+  "terminal_options": {
+    "file_column_width": 70
+  }
+}
