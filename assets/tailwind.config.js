@@ -4,6 +4,7 @@
 const plugin = require("tailwindcss/plugin")
 const fs = require("fs")
 const path = require("path")
+import colors from 'tailwindcss/colors'
 
 module.exports = {
   content: [
@@ -14,7 +15,47 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: "#FD4F00",
+        transparent: colors.transparent,
+        brand: {
+        '50': '#fff6ec',
+        '100': '#ffecd3',
+        '200': '#ffd4a5',
+        '300': '#ffb66d',
+        '400': '#ff8b32',
+        '500': '#ff6a0a',
+        '600': '#fd4f00',
+        '700': '#cc3702',
+        '800': '#a12b0b',
+        '900': '#82260c',
+        '950': '#461004',
+        },
+        primary: {
+          '50': '#ebffff',
+          '100': '#cdfcff',
+          '200': '#a1f6ff',
+          '300': '#61edff',
+          '400': '#19daf7',
+          '500': '#00bcdd',
+          '600': '#0196b9',
+          '700': '#0980a1',
+          '800': '#116079',
+          '900': '#135066',
+          '950': '#053447',
+        },
+        neutral: colors.gray,
+        secondary: {
+          '50': '#fdf2f8',
+          '100': '#fde6f3',
+          '200': '#fccee8',
+          '300': '#fba6d4',
+          '400': '#f879bb',
+          '500': '#f04498',
+          '600': '#e02275',
+          '700': '#c2145b',
+          '800': '#a1134c',
+          '900': '#861542',
+          '950': '#520524',
+        },
       }
     },
   },
