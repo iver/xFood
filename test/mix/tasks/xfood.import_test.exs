@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Xfood.ImportTest do
   use Xfood.DataCase
+
   alias Mix.Tasks.Xfood.Import
+  alias Xfood.AccountsFixtures
 
   describe "instructions/0" do
     test "contains help instructions" do
@@ -19,6 +21,18 @@ defmodule Mix.Tasks.Xfood.ImportTest do
       assert_raise Mix.Error, Import.instructions(), fn ->
         Import.run()
       end
+    end
+  end
+
+  describe "run/1" do
+    @data_source "priv/Mobile_Food_Facility_Permit.csv"
+    setup do
+      {:ok, %{user: AccountsFixtures.user_fixture()}}
+    end
+
+    test "when file contains data", %{user: user} do
+      data = [f: @data_source, u: user.id]
+      assert :ok = Import.run(data)
     end
   end
 end

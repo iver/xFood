@@ -1,9 +1,12 @@
 %Doctor.Config{
   ignore_modules: [
+    Mix.Tasks.Xfood.Import,
     Xfood.Accounts.User,
     Xfood.Accounts.UserToken,
     Xfood.AccountsFixtures,
+    Xfood.Application,
     Xfood.Mailer,
+    Xfood.Reader,
     Xfood.Repo,
     Xfood.Reports.Export,
     Xfood.UserFactory,

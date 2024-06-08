@@ -28,6 +28,7 @@ defmodule Mix.Tasks.Xfood.Import do
   require Logger
 
   alias Xfood.Application
+  alias Xfood.Reader
 
   @shortdoc "Import csv file into the system"
 
@@ -93,16 +94,15 @@ defmodule Mix.Tasks.Xfood.Import do
     Mix.shell().info(instructions())
   end
 
-  defp execute(%{u: user_id} = params) do
+  defp execute(%{u: user_id, f: file} = params) do
     params
-    |> Map.merge(%{user_id: user_id})
-    |> Map.delete(:u)
+    |> Map.merge(%{user_id: user_id, file: file})
+    |> Map.drop([:u, :f])
     |> execute()
   end
 
-  defp execute(%{user_id: user_id} = params) do
-    IO.inspect(params, label: "params->")
-    IO.inspect(user_id, label: "u_id->")
+  defp execute(%{user_id: user_id, file: file} = _params) do
+    Reader.run(file, user_id)
   end
 
   defp execute(%{version: true}) do
@@ -112,7 +112,7 @@ defmodule Mix.Tasks.Xfood.Import do
   defp execute(default) do
     Mix.shell().error("==== Missing information: ====")
     Mix.shell().info("\t#{inspect(default)}")
-    show_error(%{user_id: nil})
+    show_error(default)
   end
 
   defp valid?(input) do
