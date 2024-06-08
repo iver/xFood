@@ -3,6 +3,7 @@ defmodule XfoodWeb.VendorLiveTest do
 
   import Phoenix.LiveViewTest
   import Xfood.FoodFixtures
+  import Xfood.AccountsFixtures
 
   @create_attrs %{
     block: "some block",
@@ -98,14 +99,14 @@ defmodule XfoodWeb.VendorLiveTest do
     old_neighborhoods: nil
   }
 
-  defp create_vendor(_) do
+  setup %{conn: conn} do
+    user = user_fixture()
     vendor = vendor_fixture()
-    %{vendor: vendor}
+    conn = log_in_user(conn, user)
+    {:ok, conn: conn, user: user, vendor: vendor}
   end
 
   describe "Index" do
-    setup [:create_vendor]
-
     test "lists all vendors", %{conn: conn, vendor: vendor} do
       {:ok, _index_live, html} = live(conn, ~p"/vendors")
 
@@ -168,8 +169,6 @@ defmodule XfoodWeb.VendorLiveTest do
   end
 
   describe "Show" do
-    setup [:create_vendor]
-
     test "displays vendor", %{conn: conn, vendor: vendor} do
       {:ok, _show_live, html} = live(conn, ~p"/vendors/#{vendor}")
 
