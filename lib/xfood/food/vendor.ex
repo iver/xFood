@@ -3,6 +3,7 @@ defmodule Xfood.Food.Vendor do
 
   use Ecto.Schema
   import Ecto.Changeset
+  alias Xfood.Accounts.User
 
   @required_fields [
     :location_id,
@@ -12,7 +13,8 @@ defmodule Xfood.Food.Vendor do
     :status,
     :received,
     :prior_permit,
-    :location
+    :location,
+    :user_id
   ]
 
   @castable_fields [
@@ -44,7 +46,8 @@ defmodule Xfood.Food.Vendor do
     :police_districts,
     :supervisor_districts,
     :zip_codes,
-    :old_neighborhoods
+    :old_neighborhoods,
+    :user_id
   ]
 
   schema "vendors" do
@@ -52,7 +55,7 @@ defmodule Xfood.Food.Vendor do
     field :status, :string
     field :permit, :string
     field :location, :string
-    field :approved, :string
+    field :approved, :naive_datetime
     field :y, :float
     field :x, :float
     field :location_id, :integer
@@ -77,6 +80,8 @@ defmodule Xfood.Food.Vendor do
     field :supervisor_districts, :integer
     field :zip_codes, :string
     field :old_neighborhoods, :integer
+
+    belongs_to(:user, User)
 
     timestamps(type: :utc_datetime)
   end

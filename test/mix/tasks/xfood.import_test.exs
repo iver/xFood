@@ -32,7 +32,9 @@ defmodule Mix.Tasks.Xfood.ImportTest do
 
     test "when file contains data", %{user: user} do
       data = [f: @data_source, u: user.id]
-      assert :ok = Import.run(data)
+      result = Import.run(data)
+      assert is_list(result)
+      assert length(result) == 629
     end
   end
 end

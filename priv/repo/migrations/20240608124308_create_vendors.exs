@@ -16,7 +16,7 @@ defmodule Xfood.Repo.Migrations.CreateVendors do
       add :lot, :string
       add :permit, :string
       add :status, :string
-      add :food_items, :string
+      add :food_items, :text
       add :x, :float
       add :y, :float
       add :latitud, :float
@@ -24,7 +24,7 @@ defmodule Xfood.Repo.Migrations.CreateVendors do
       add :schedule, :string
       add :days_hours, :string
       add :noi_sent, :string
-      add :approved, :string
+      add :approved, :naive_datetime
       add :received, :naive_datetime
       add :prior_permit, :boolean, default: false, null: false
       add :expiration_date, :naive_datetime

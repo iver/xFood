@@ -7,6 +7,7 @@ defmodule Xfood.Food do
   alias Xfood.Repo
 
   alias Xfood.Food.Vendor
+  alias Xfood.Food.VendorQuery
 
   @doc """
   Returns the list of vendors.
@@ -17,8 +18,10 @@ defmodule Xfood.Food do
       [%Vendor{}, ...]
 
   """
-  def list_vendors do
-    Repo.all(Vendor)
+  def list_vendors(user) do
+    Vendor
+    |> VendorQuery.by_user(user)
+    |> Repo.all()
   end
 
   @doc """

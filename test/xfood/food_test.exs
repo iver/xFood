@@ -1,12 +1,11 @@
 defmodule Xfood.FoodTest do
   use Xfood.DataCase
-
+  import Xfood.AccountsFixtures
   alias Xfood.Food
 
   describe "vendors" do
     alias Xfood.Food.Vendor
-
-    import Xfood.FoodFixtures
+    alias Xfood.VendorFactory
 
     @invalid_attrs %{
       block: nil,
@@ -40,23 +39,27 @@ defmodule Xfood.FoodTest do
       old_neighborhoods: nil
     }
 
-    test "list_vendors/0 returns all vendors" do
-      vendor = vendor_fixture()
-      assert Food.list_vendors() == [vendor]
+    setup do
+      user = user_fixture()
+      vendor = VendorFactory.insert(:vendor, %{user_id: user.id})
+      {:ok, user: user, vendor: vendor}
     end
 
-    test "get_vendor!/1 returns the vendor with given id" do
-      vendor = vendor_fixture()
+    test "list_vendors/0 returns all vendors", %{vendor: vendor, user: user} do
+      assert Food.list_vendors(user) == [vendor]
+    end
+
+    test "get_vendor!/1 returns the vendor with given id", %{vendor: vendor} do
       assert Food.get_vendor!(vendor.id) == vendor
     end
 
-    test "create_vendor/1 with valid data creates a vendor" do
+    test "create_vendor/1 with valid data creates a vendor", %{user: user} do
       valid_attrs = %{
         block: "some block",
         status: "some status",
         permit: "some permit",
         location: "some location",
-        approved: "some approved",
+        approved: ~N[2023-06-07 12:43:00],
         y: 120.5,
         x: 120.5,
         location_id: 42,
@@ -80,7 +83,8 @@ defmodule Xfood.FoodTest do
         police_districts: 42,
         supervisor_districts: 42,
         zip_codes: "some zip_codes",
-        old_neighborhoods: 42
+        old_neighborhoods: 42,
+        user_id: user.id
       }
 
       assert {:ok, %Vendor{} = vendor} = Food.create_vendor(valid_attrs)
@@ -88,7 +92,7 @@ defmodule Xfood.FoodTest do
       assert vendor.status == "some status"
       assert vendor.permit == "some permit"
       assert vendor.location == "some location"
-      assert vendor.approved == "some approved"
+      assert vendor.approved == ~N[2023-06-07 12:43:00]
       assert vendor.y == 120.5
       assert vendor.x == 120.5
       assert vendor.location_id == 42
@@ -113,21 +117,20 @@ defmodule Xfood.FoodTest do
       assert vendor.supervisor_districts == 42
       assert vendor.zip_codes == "some zip_codes"
       assert vendor.old_neighborhoods == 42
+      assert vendor.user_id == user.id
     end
 
     test "create_vendor/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Food.create_vendor(@invalid_attrs)
     end
 
-    test "update_vendor/2 with valid data updates the vendor" do
-      vendor = vendor_fixture()
-
+    test "update_vendor/2 with valid data updates the vendor", %{vendor: vendor, user: user} do
       update_attrs = %{
         block: "some updated block",
         status: "some updated status",
         permit: "some updated permit",
         location: "some updated location",
-        approved: "some updated approved",
+        approved: ~N[2024-06-08 12:43:00],
         y: 456.7,
         x: 456.7,
         location_id: 43,
@@ -144,14 +147,15 @@ defmodule Xfood.FoodTest do
         schedule: "some updated schedule",
         days_hours: "some updated days_hours",
         noi_sent: "some updated noi_sent",
-        received: ~N[2024-06-08 12:43:00],
+        received: ~N[2024-01-08 12:43:00],
         prior_permit: false,
-        expiration_date: ~N[2024-06-08 12:43:00],
+        expiration_date: ~N[2025-06-08 12:43:00],
         fire_prevention_districts: 43,
         police_districts: 43,
         supervisor_districts: 43,
         zip_codes: "some updated zip_codes",
-        old_neighborhoods: 43
+        old_neighborhoods: 43,
+        user_id: user.id
       }
 
       assert {:ok, %Vendor{} = vendor} = Food.update_vendor(vendor, update_attrs)
@@ -159,7 +163,7 @@ defmodule Xfood.FoodTest do
       assert vendor.status == "some updated status"
       assert vendor.permit == "some updated permit"
       assert vendor.location == "some updated location"
-      assert vendor.approved == "some updated approved"
+      assert vendor.approved == ~N[2024-06-08 12:43:00]
       assert vendor.y == 456.7
       assert vendor.x == 456.7
       assert vendor.location_id == 43
@@ -176,30 +180,28 @@ defmodule Xfood.FoodTest do
       assert vendor.schedule == "some updated schedule"
       assert vendor.days_hours == "some updated days_hours"
       assert vendor.noi_sent == "some updated noi_sent"
-      assert vendor.received == ~N[2024-06-08 12:43:00]
+      assert vendor.received == ~N[2024-01-08 12:43:00]
       assert vendor.prior_permit == false
-      assert vendor.expiration_date == ~N[2024-06-08 12:43:00]
+      assert vendor.expiration_date == ~N[2025-06-08 12:43:00]
       assert vendor.fire_prevention_districts == 43
       assert vendor.police_districts == 43
       assert vendor.supervisor_districts == 43
       assert vendor.zip_codes == "some updated zip_codes"
       assert vendor.old_neighborhoods == 43
+      assert vendor.user_id == user.id
     end
 
-    test "update_vendor/2 with invalid data returns error changeset" do
-      vendor = vendor_fixture()
+    test "update_vendor/2 with invalid data returns error changeset", %{vendor: vendor} do
       assert {:error, %Ecto.Changeset{}} = Food.update_vendor(vendor, @invalid_attrs)
       assert vendor == Food.get_vendor!(vendor.id)
     end
 
-    test "delete_vendor/1 deletes the vendor" do
-      vendor = vendor_fixture()
+    test "delete_vendor/1 deletes the vendor", %{vendor: vendor} do
       assert {:ok, %Vendor{}} = Food.delete_vendor(vendor)
       assert_raise Ecto.NoResultsError, fn -> Food.get_vendor!(vendor.id) end
     end
 
-    test "change_vendor/1 returns a vendor changeset" do
-      vendor = vendor_fixture()
+    test "change_vendor/1 returns a vendor changeset", %{vendor: vendor} do
       assert %Ecto.Changeset{} = Food.change_vendor(vendor)
     end
   end

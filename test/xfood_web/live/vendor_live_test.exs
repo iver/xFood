@@ -2,8 +2,9 @@ defmodule XfoodWeb.VendorLiveTest do
   use XfoodWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import Xfood.FoodFixtures
   import Xfood.AccountsFixtures
+
+  alias Xfood.VendorFactory
 
   @create_attrs %{
     block: "some block",
@@ -101,7 +102,7 @@ defmodule XfoodWeb.VendorLiveTest do
 
   setup %{conn: conn} do
     user = user_fixture()
-    vendor = vendor_fixture()
+    vendor = VendorFactory.insert(:vendor, %{user_id: user.id})
     conn = log_in_user(conn, user)
     {:ok, conn: conn, user: user, vendor: vendor}
   end

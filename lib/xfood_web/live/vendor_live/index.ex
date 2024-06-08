@@ -6,7 +6,8 @@ defmodule XfoodWeb.VendorLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :vendors, Food.list_vendors())}
+    user = socket.assigns.current_user
+    {:ok, stream(socket, :vendors, Food.list_vendors(user))}
   end
 
   @impl true
