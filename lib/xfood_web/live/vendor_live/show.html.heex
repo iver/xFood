@@ -14,7 +14,7 @@
   <:item title="Facility type"><%= @vendor.facility_type %></:item>
   <:item title="Cnn"><%= @vendor.cnn %></:item>
   <:item title="Location description"><%= @vendor.location_description %></:item>
-  <:item title="Andress"><%= @vendor.andress %></:item>
+  <:item title="Address"><%= @vendor.address %></:item>
   <:item title="Blocklot"><%= @vendor.blocklot %></:item>
   <:item title="Block"><%= @vendor.block %></:item>
   <:item title="Lot"><%= @vendor.lot %></:item>
@@ -42,7 +42,12 @@
 
 <.back navigate={~p"/vendors"}>Back to vendors</.back>
 
-<.modal :if={@live_action == :edit} id="vendor-modal" show on_cancel={JS.patch(~p"/vendors/#{@vendor}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="vendor-modal"
+  show
+  on_cancel={JS.patch(~p"/vendors/#{@vendor}")}
+>
   <.live_component
     module={XfoodWeb.VendorLive.FormComponent}
     id={@vendor.id}

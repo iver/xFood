@@ -1,6 +1,51 @@
 defmodule Xfood.Food.Vendor do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
+
+  @required_fields [
+    :location_id,
+    :applicant,
+    :address,
+    :permit,
+    :status,
+    :received,
+    :prior_permit,
+    :location
+  ]
+
+  @castable_fields [
+    :location_id,
+    :applicant,
+    :facility_type,
+    :cnn,
+    :location_description,
+    :address,
+    :blocklot,
+    :block,
+    :lot,
+    :permit,
+    :status,
+    :food_items,
+    :x,
+    :y,
+    :latitud,
+    :longitude,
+    :schedule,
+    :days_hours,
+    :noi_sent,
+    :approved,
+    :received,
+    :prior_permit,
+    :expiration_date,
+    :location,
+    :fire_prevention_districts,
+    :police_districts,
+    :supervisor_districts,
+    :zip_codes,
+    :old_neighborhoods
+  ]
 
   schema "vendors" do
     field :block, :string
@@ -15,7 +60,7 @@ defmodule Xfood.Food.Vendor do
     field :facility_type, :string
     field :cnn, :integer
     field :location_description, :string
-    field :andress, :string
+    field :address, :string
     field :blocklot, :string
     field :lot, :string
     field :food_items, :string
@@ -39,7 +84,7 @@ defmodule Xfood.Food.Vendor do
   @doc false
   def changeset(vendor, attrs) do
     vendor
-    |> cast(attrs, [:location_id, :applicant, :facility_type, :cnn, :location_description, :andress, :blocklot, :block, :lot, :permit, :status, :food_items, :x, :y, :latitud, :longitude, :schedule, :days_hours, :noi_sent, :approved, :received, :prior_permit, :expiration_date, :location, :fire_prevention_districts, :police_districts, :supervisor_districts, :zip_codes, :old_neighborhoods])
-    |> validate_required([:location_id, :applicant, :facility_type, :cnn, :location_description, :andress, :blocklot, :block, :lot, :permit, :status, :food_items, :x, :y, :latitud, :longitude, :schedule, :days_hours, :noi_sent, :approved, :received, :prior_permit, :expiration_date, :location, :fire_prevention_districts, :police_districts, :supervisor_districts, :zip_codes, :old_neighborhoods])
+    |> cast(attrs, @castable_fields)
+    |> validate_required(@required_fields)
   end
 end

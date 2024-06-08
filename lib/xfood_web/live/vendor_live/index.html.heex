@@ -16,8 +16,10 @@
   <:col :let={{_id, vendor}} label="Applicant"><%= vendor.applicant %></:col>
   <:col :let={{_id, vendor}} label="Facility type"><%= vendor.facility_type %></:col>
   <:col :let={{_id, vendor}} label="Cnn"><%= vendor.cnn %></:col>
-  <:col :let={{_id, vendor}} label="Location description"><%= vendor.location_description %></:col>
-  <:col :let={{_id, vendor}} label="Andress"><%= vendor.andress %></:col>
+  <:col :let={{_id, vendor}} label="Location description">
+    <%= vendor.location_description %>
+  </:col>
+  <:col :let={{_id, vendor}} label="Address"><%= vendor.address %></:col>
   <:col :let={{_id, vendor}} label="Blocklot"><%= vendor.blocklot %></:col>
   <:col :let={{_id, vendor}} label="Block"><%= vendor.block %></:col>
   <:col :let={{_id, vendor}} label="Lot"><%= vendor.lot %></:col>
@@ -36,9 +38,13 @@
   <:col :let={{_id, vendor}} label="Prior permit"><%= vendor.prior_permit %></:col>
   <:col :let={{_id, vendor}} label="Expiration date"><%= vendor.expiration_date %></:col>
   <:col :let={{_id, vendor}} label="Location"><%= vendor.location %></:col>
-  <:col :let={{_id, vendor}} label="Fire prevention districts"><%= vendor.fire_prevention_districts %></:col>
+  <:col :let={{_id, vendor}} label="Fire prevention districts">
+    <%= vendor.fire_prevention_districts %>
+  </:col>
   <:col :let={{_id, vendor}} label="Police districts"><%= vendor.police_districts %></:col>
-  <:col :let={{_id, vendor}} label="Supervisor districts"><%= vendor.supervisor_districts %></:col>
+  <:col :let={{_id, vendor}} label="Supervisor districts">
+    <%= vendor.supervisor_districts %>
+  </:col>
   <:col :let={{_id, vendor}} label="Zip codes"><%= vendor.zip_codes %></:col>
   <:col :let={{_id, vendor}} label="Old neighborhoods"><%= vendor.old_neighborhoods %></:col>
   <:action :let={{_id, vendor}}>
@@ -57,7 +63,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="vendor-modal" show on_cancel={JS.patch(~p"/vendors")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="vendor-modal"
+  show
+  on_cancel={JS.patch(~p"/vendors")}
+>
   <.live_component
     module={XfoodWeb.VendorLive.FormComponent}
     id={@vendor.id || :new}

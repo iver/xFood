@@ -24,7 +24,7 @@ defmodule XfoodWeb.VendorLive.FormComponent do
         <.input field={@form[:facility_type]} type="text" label="Facility type" />
         <.input field={@form[:cnn]} type="number" label="Cnn" />
         <.input field={@form[:location_description]} type="text" label="Location description" />
-        <.input field={@form[:andress]} type="text" label="Andress" />
+        <.input field={@form[:address]} type="text" label="Address" />
         <.input field={@form[:blocklot]} type="text" label="Blocklot" />
         <.input field={@form[:block]} type="text" label="Block" />
         <.input field={@form[:lot]} type="text" label="Lot" />
@@ -43,7 +43,11 @@ defmodule XfoodWeb.VendorLive.FormComponent do
         <.input field={@form[:prior_permit]} type="checkbox" label="Prior permit" />
         <.input field={@form[:expiration_date]} type="datetime-local" label="Expiration date" />
         <.input field={@form[:location]} type="text" label="Location" />
-        <.input field={@form[:fire_prevention_districts]} type="number" label="Fire prevention districts" />
+        <.input
+          field={@form[:fire_prevention_districts]}
+          type="number"
+          label="Fire prevention districts"
+        />
         <.input field={@form[:police_districts]} type="number" label="Police districts" />
         <.input field={@form[:supervisor_districts]} type="number" label="Supervisor districts" />
         <.input field={@form[:zip_codes]} type="text" label="Zip codes" />

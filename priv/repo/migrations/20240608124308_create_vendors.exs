@@ -10,7 +10,7 @@ defmodule Xfood.Repo.Migrations.CreateVendors do
       add :facility_type, :string
       add :cnn, :integer
       add :location_description, :string
-      add :andress, :string
+      add :address, :string
       add :blocklot, :string
       add :block, :string
       add :lot, :string

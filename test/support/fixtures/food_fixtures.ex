@@ -11,7 +11,7 @@ defmodule Xfood.FoodFixtures do
     {:ok, vendor} =
       attrs
       |> Enum.into(%{
-        andress: "some andress",
+        address: "some address",
         applicant: "some applicant",
         approved: "some approved",
         block: "some block",
