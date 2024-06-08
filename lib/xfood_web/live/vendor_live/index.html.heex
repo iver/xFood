@@ -1,0 +1,69 @@
+<.header>
+  Listing Vendors
+  <:actions>
+    <.link patch={~p"/vendors/new"}>
+      <.button>New Vendor</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="vendors"
+  rows={@streams.vendors}
+  row_click={fn {_id, vendor} -> JS.navigate(~p"/vendors/#{vendor}") end}
+>
+  <:col :let={{_id, vendor}} label="Location"><%= vendor.location_id %></:col>
+  <:col :let={{_id, vendor}} label="Applicant"><%= vendor.applicant %></:col>
+  <:col :let={{_id, vendor}} label="Facility type"><%= vendor.facility_type %></:col>
+  <:col :let={{_id, vendor}} label="Cnn"><%= vendor.cnn %></:col>
+  <:col :let={{_id, vendor}} label="Location description"><%= vendor.location_description %></:col>
+  <:col :let={{_id, vendor}} label="Andress"><%= vendor.andress %></:col>
+  <:col :let={{_id, vendor}} label="Blocklot"><%= vendor.blocklot %></:col>
+  <:col :let={{_id, vendor}} label="Block"><%= vendor.block %></:col>
+  <:col :let={{_id, vendor}} label="Lot"><%= vendor.lot %></:col>
+  <:col :let={{_id, vendor}} label="Permit"><%= vendor.permit %></:col>
+  <:col :let={{_id, vendor}} label="Status"><%= vendor.status %></:col>
+  <:col :let={{_id, vendor}} label="Food items"><%= vendor.food_items %></:col>
+  <:col :let={{_id, vendor}} label="X"><%= vendor.x %></:col>
+  <:col :let={{_id, vendor}} label="Y"><%= vendor.y %></:col>
+  <:col :let={{_id, vendor}} label="Latitud"><%= vendor.latitud %></:col>
+  <:col :let={{_id, vendor}} label="Longitude"><%= vendor.longitude %></:col>
+  <:col :let={{_id, vendor}} label="Schedule"><%= vendor.schedule %></:col>
+  <:col :let={{_id, vendor}} label="Days hours"><%= vendor.days_hours %></:col>
+  <:col :let={{_id, vendor}} label="Noi sent"><%= vendor.noi_sent %></:col>
+  <:col :let={{_id, vendor}} label="Approved"><%= vendor.approved %></:col>
+  <:col :let={{_id, vendor}} label="Received"><%= vendor.received %></:col>
+  <:col :let={{_id, vendor}} label="Prior permit"><%= vendor.prior_permit %></:col>
+  <:col :let={{_id, vendor}} label="Expiration date"><%= vendor.expiration_date %></:col>
+  <:col :let={{_id, vendor}} label="Location"><%= vendor.location %></:col>
+  <:col :let={{_id, vendor}} label="Fire prevention districts"><%= vendor.fire_prevention_districts %></:col>
+  <:col :let={{_id, vendor}} label="Police districts"><%= vendor.police_districts %></:col>
+  <:col :let={{_id, vendor}} label="Supervisor districts"><%= vendor.supervisor_districts %></:col>
+  <:col :let={{_id, vendor}} label="Zip codes"><%= vendor.zip_codes %></:col>
+  <:col :let={{_id, vendor}} label="Old neighborhoods"><%= vendor.old_neighborhoods %></:col>
+  <:action :let={{_id, vendor}}>
+    <div class="sr-only">
+      <.link navigate={~p"/vendors/#{vendor}"}>Show</.link>
+    </div>
+    <.link patch={~p"/vendors/#{vendor}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, vendor}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: vendor.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="vendor-modal" show on_cancel={JS.patch(~p"/vendors")}>
+  <.live_component
+    module={XfoodWeb.VendorLive.FormComponent}
+    id={@vendor.id || :new}
+    title={@page_title}
+    action={@live_action}
+    vendor={@vendor}
+    patch={~p"/vendors"}
+  />
+</.modal>
