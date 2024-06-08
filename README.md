@@ -1,6 +1,6 @@
 # xFood
 
-A mini challenge to consume the [San Francisco open data api](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data).
+A mini challenge to consume the [San Francisco open data](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data).
 
 ## Install & Setup
 

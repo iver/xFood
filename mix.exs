@@ -94,6 +94,7 @@ defmodule Xfood.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:swoosh, "~> 1.5"},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
+      {:timex, "~> 3.7.11"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"}
     ]

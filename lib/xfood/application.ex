@@ -3,6 +3,10 @@ defmodule Xfood.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  @name Mix.Project.config()[:app]
+  @version Mix.Project.config()[:version]
+  @env Mix.env()
+
   use Application
 
   @impl true
@@ -33,4 +37,13 @@ defmodule Xfood.Application do
     XfoodWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  @spec env() :: :test
+  def env, do: @env
+  @spec full_name() :: <<_::64, _::_*8>>
+  def full_name, do: "#{name()} #{@version} [#{@env}]"
+  @spec name() :: binary()
+  def name, do: @name |> to_string() |> String.upcase()
+  @spec version() :: <<_::40>>
+  def version, do: @version
 end
