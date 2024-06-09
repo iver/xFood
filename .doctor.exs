@@ -13,6 +13,7 @@
     Xfood.Reports.Export,
     Xfood.Time.Parser,
     Xfood.UserFactory,
+    Xfood.VendorFactory,
     XfoodWeb,
     XfoodWeb.Endpoint,
     XfoodWeb.ErrorHTML,
