@@ -86,6 +86,7 @@ defmodule XfoodWeb do
       # Core UI components and translation
       import XfoodWeb.CoreComponents
       import XfoodWeb.Gettext
+      import XfoodWeb.Components.TableLive
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

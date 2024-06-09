@@ -7,25 +7,28 @@
     <.live_title suffix=" · Phoenix Framework">
       <%= assigns[:page_title] || "Xfood" %>
     </.live_title>
+    <link
+      nonce={assigns[:csp_nonce]}
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.phoenix.min.js">
+    </script>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-white antialiased">
-    <%= if @current_user do %>
-      <div class="text-[0.8125rem] leading-6 text-zinc-900">
-        <%= @current_user.email %>
-      </div>
-      <.menu>
-        <.menu_item link={~p"/users/settings"} text="Settings" alt="" active={false} />
-        <.menu_item link={~p"/users/log_out"} text="Log out" alt="" active={false} />
-      </.menu>
-    <% else %>
-      <.menu>
-        <.menu_item link={~p"/users/register"} text="Register" alt="" active={false} />
-        <.menu_item link={~p"/users/log_in"} text="Log in" alt="" active={false} />
-      </.menu>
-    <% end %>
+  <body class="bg-white antialiased  ">
+    <.navbar>
+      <:items>
+        <.nav_items>
+          <:links></:links>
+        </.nav_items>
+      </:items>
+      <:login_buttons>
+        <.login_buttons current_user={@current_user} />
+      </:login_buttons>
+    </.navbar>
 
     <%= @inner_content %>
   </body>

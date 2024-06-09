@@ -2,6 +2,7 @@ defmodule XfoodWeb.Router do
   use XfoodWeb, :router
 
   import XfoodWeb.UserAuth
+  alias Xfood.Application, as: App
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,7 @@ defmodule XfoodWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
     plug :fetch_current_user
+    plug XfoodWeb.PolicyPlug, %{env: App.env(), host: App.host()}
   end
 
   pipeline :api do

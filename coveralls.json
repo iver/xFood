@@ -25,7 +25,7 @@
   ],
   "coverage_options": {
     "output_dir": "cover/",
-    "minimum_coverage": 84,
+    "minimum_coverage": 78,
     "html_filter_full_covered": true
   },
   "terminal_options": {

@@ -46,4 +46,9 @@ defmodule Xfood.Application do
   def name, do: @name |> to_string() |> String.upcase()
   @spec version() :: <<_::40>>
   def version, do: @version
+
+  def host do
+    endpoint = Application.fetch_env!(:xfood, XfoodWeb.Endpoint)
+    endpoint[:url][:host]
+  end
 end
