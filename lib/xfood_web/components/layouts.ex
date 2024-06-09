@@ -10,6 +10,7 @@ defmodule XfoodWeb.Layouts do
   """
   use XfoodWeb, :html
   import XfoodWeb.Components.MenuLive
+  import XfoodWeb.SignInLive
 
   embed_templates "layouts/*"
 end

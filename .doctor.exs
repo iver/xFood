@@ -21,6 +21,7 @@
     XfoodWeb.Layouts,
     XfoodWeb.PageController,
     XfoodWeb.PageHTML,
+    XfoodWeb.PolicyPlug,
     XfoodWeb.Router,
     XfoodWeb.Telemetry,
     XfoodWeb.UserConfirmationInstructionsLive,

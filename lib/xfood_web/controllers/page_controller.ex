@@ -1,9 +1,16 @@
 defmodule XfoodWeb.PageController do
   use XfoodWeb, :controller
+  alias Xfood.Accounts.User
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home, layout: false)
+    %{assigns: assigns} = conn
+
+    case assigns[:current_user] do
+      nil ->
+        render(conn, :home, layout: false)
+
+      %User{} = _user ->
+        redirect(conn, to: "/vendors")
+    end
   end
 end

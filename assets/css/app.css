@@ -2,7 +2,32 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* This file is for your main application CSS */
+@layer components {
+    .xfood-table {
+        @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+
+        thead {
+            @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 text-center;
+        }
+
+        .col_currency {
+            @apply text-right items-end border-red-500;
+        }
+
+        .col_date {
+            @apply text-center;
+        }
+    }
+
+    .xfood-table__th,
+    .xfood-table__td {
+        @apply px-4 py-3;
+    }
+
+    .xfood-table__tr {
+        @apply border-b dark:border-gray-700 hover:bg-gray-50 cursor-pointer;
+    }
+}
 
 .debug-red {
     border: 1px solid red;
